@@ -26,20 +26,20 @@ void loop() {
       Serial.println("Encendiendo");
       digitalWrite(LED_BUILTIN, HIGH);              // Encendemos el LED 
     } else {
-        if (!cmd.compareTo("OFF")) {
-          status = LOW;
-          Serial.println("Apagando");
-          digitalWrite(LED_BUILTIN, LOW);           // Apagamos el LED 
+      if (!cmd.compareTo("OFF")) {
+        status = LOW;
+        Serial.println("Apagando");
+        digitalWrite(LED_BUILTIN, LOW);           // Apagamos el LED 
+      } else {
+        if (!cmd.compareTo("CHG")) {
+          status = !status;
+          Serial.print("Cambiando ");
+          Serial.println(status? "(Encendiendo)":"(Apagando)");
+          digitalWrite(LED_BUILTIN, status);      // Cambiamos el estado del LED 
         } else {
-          if (!cmd.compareTo("CHG")) {
-            status = !status;
-            Serial.print("Cambiando ");
-            Serial.println(status? "(Encendiendo)":"(Apagando)");
-            digitalWrite(LED_BUILTIN, status);      // Cambiamos el estado del LED 
-          } else {
-            Serial.println("Comando desconocido");  // Comando desconocido
-          }
+          Serial.println("Comando desconocido");  // Comando desconocido
         }
+      }
     }
   }
 
