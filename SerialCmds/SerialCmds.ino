@@ -21,12 +21,12 @@ void loop() {
       Serial.println("Encendiendo");
       digitalWrite(LED_BUILTIN, HIGH);   // Encendemos el LED del MKR1000
     } else {
-        if (!cmd.compareTo(String("OFF"))) {
-          Serial.println("Apagando");
-          digitalWrite(LED_BUILTIN, LOW); // Apagamos el LED del MKR1000
-        } else {
-          Serial.println("Comando desconocido");
-        }
+      if (!cmd.compareTo(String("OFF"))) {
+        Serial.println("Apagando");
+        digitalWrite(LED_BUILTIN, LOW); // Apagamos el LED del MKR1000
+      } else {
+        Serial.println("Comando desconocido");
+      }
     }
   }
 
