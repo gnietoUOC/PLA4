@@ -10,24 +10,26 @@ void setup() {
 
 }
 
+boolean needsSwitch() {
+  boolean switching = false;
+  int duration = status? ON_DURATION:OFF_DURATION;
+
+  if (millis()>=offset+duration) {
+    status = !status;
+    offset = millis();
+    switching = true;  
+  }
+
+  return switching;
+}
+
 void loop() {
   
-  if (status) {
-    if (millis()>=offset+ON_DURATION) {
-      offset = millis();
-      digitalWrite(LED_BUILTIN, status);   // Cambio el estado de la salida del LED
-      Serial.print(millis());
-      Serial.println(" OFF");
-      status = !status;
-    }
-  } else {
-    if (millis()>=offset+OFF_DURATION) {
-      offset = millis();
-      digitalWrite(LED_BUILTIN, status);   // Cambio el estado de la salida del LED   
-      Serial.print(millis());
-      Serial.println(" ON");
-      status = !status;
-    }
+  if (needsSwitch()) {
+    digitalWrite(LED_BUILTIN, status);   // Cambio el estado de la salida del LED   
+    Serial.print(millis());
+    Serial.println(status? " ON":" OFF");
   }
+  
   
 }
