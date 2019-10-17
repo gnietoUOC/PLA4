@@ -2,7 +2,7 @@
 #define OFF_DURATION 1000
 
 boolean status = LOW;
-int offset = 0;
+unsigned long offset = 0;
 
 void setup() {
   Serial.begin(9600);
@@ -10,25 +10,36 @@ void setup() {
 
 }
 
+// Método que avisa cuando se ha producido una 'transición'
 boolean needsSwitch() {
   boolean switching = false;
-  int duration = status? ON_DURATION:OFF_DURATION;
 
-  if (millis()>=offset+duration) {
+// Compruebo si ha pasado el tiempo de este estado
+  if (millis()>=offset) {
+    // Si ha pasado el intervalo, cambio el estado, ...
     status = !status;
-    offset = millis();
+    // ... calculo cuando debe producirse el siguiente cambio, ...
+    offset = millis()+(status? ON_DURATION:OFF_DURATION);
+    // ... y me preparo para notificarlo.
     switching = true;  
   }
 
   return switching;
 }
 
-void loop() {
-  
-  if (needsSwitch()) {
+// Ejecuta las acciones requeridas cuando se produce una 'transición'
+void doSwitch() {
     digitalWrite(LED_BUILTIN, status);   // Cambio el estado de la salida del LED   
     Serial.print(millis());
     Serial.println(status? " ON":" OFF");
+}
+
+// Bucle principal. Limpio. Solo verifica los cambios de estado y
+// ejecuta las acciones necesarias cuando se producen.
+void loop() {
+  
+  if (needsSwitch()) {
+    doSwitch();
   }
   
   
