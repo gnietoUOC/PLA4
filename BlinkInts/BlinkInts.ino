@@ -9,6 +9,10 @@ volatile boolean state1 = LOW;
 // disparan una interrupción
 boolean state2 = LOW ;
 
+// Variable que controla el instante de la próxima oscilación
+unsigned long offset=0;
+
+
 // Defino los puertos y asocio la interrupción a la invocación 
 // del método blink.
 void setup() {
@@ -29,13 +33,22 @@ void loop() {
 // Como estamos gestionando la oscilación del PIN desde el mismo
 // MKR (no es producida por algún tipo de sensor externo), en 
 // este buble también actualizamos su valor.
-  digitalWrite(FLAG, state2);
-  state2=!state2;
-  delay(DELAY);
+  needsSwitch();
 
   track();  
 }
 
+// Simulación de la oscilación en el PIN
+void needsSwitch() {
+  if (millis()>=offset) {
+    state2=!state2;
+    digitalWrite(FLAG, state2);
+    offset = millis()+DELAY;
+  }
+}
+
+// Rutina que cambia el estado del LED cuando es invocada como 
+// consecuencia de la llegada de una interrupción
 void blink() {
   state1 = !state1;
 }
