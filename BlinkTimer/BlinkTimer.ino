@@ -19,8 +19,7 @@ void TC4_Handler() {
 //La función que es invocada cuando el contador alcanza el valor
 //indicado y que se encargar de controlar el LED.
 volatile boolean status = LOW;
-void doSwitch()
-{
+void doSwitch() {
   digitalWrite(LED_BUILTIN, status);
   Serial.print(millis());
   Serial.println(status? " ON":" OFF");
