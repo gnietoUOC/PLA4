@@ -1,3 +1,7 @@
+const String PROGMEM cmd1 = "ON";
+const String PROGMEM cmd2 = "OFF";
+const String cmds[] PROGMEM = {cmd1,cmd2};
+
 void setup() {
 
   Serial.begin(9600);
@@ -12,22 +16,46 @@ void loop() {
   
     String cmd= Serial.readString();  // Leemos el comando que nos llega del puerto serie
 
-    cmd.trim();                       // Eliminamos el CR que incluye al final
-    
     Serial.print("Comando: ");
     Serial.println(cmd);
-    
-    if (!cmd.compareTo(String("ON"))) {
-      Serial.println("Encendiendo");
-      digitalWrite(LED_BUILTIN, HIGH);   // Encendemos el LED del MKR1000
+
+    int n = checkCmd(cmd);
+    if (n<0) {
+      Serial.println("Comando desconocido");
     } else {
-      if (!cmd.compareTo(String("OFF"))) {
-        Serial.println("Apagando");
-        digitalWrite(LED_BUILTIN, LOW); // Apagamos el LED del MKR1000
-      } else {
-        Serial.println("Comando desconocido");
-      }
+      processCmd(n);
     }
   }
+}
 
+// Comprobamos si se ha introducido un comando válido
+int checkCmd(String cmd) {
+  int n = -1;
+  int i = 0;
+  
+  // Eliminamos el CR (si lo incluye) del final
+  cmd.trim();                       
+  
+  // Buscamos el ordinal del comando introducido
+  do {
+    if (!cmd.compareTo(cmds[i])) {
+      n = i;
+    }
+  } while (n<0 && ++i<sizeof(cmds));
+
+  return n;  
+}
+
+// Procesamos el comando correspondiente
+void processCmd(int n) {
+  switch (n) {
+    case 0:
+      Serial.println("Encendiendo");
+      digitalWrite(LED_BUILTIN, HIGH);    // Encendemos el LED del MKR1000
+      break;
+    case 1:
+      Serial.println("Apagando");
+      digitalWrite(LED_BUILTIN, LOW);     // Apagamos el LED del MKR1000
+      break;
+  }
 }
