@@ -32,6 +32,6 @@ Este caso es muy similar al anterior pero, se modifica ligeramente el código pa
 
 ## SerialCmds3
 
-Esta versión añade a las anteriores tres nuevos comandos. Los caomandos TMP, PRE y HUM devuelven, respectivamente, los valores de temperatura, presión y humedad leídos por los sensores de la MKRENV.
+Esta versión añade a las anteriores tres nuevos comandos. Los comandos TMP, PRE y HUM devuelven, respectivamente, los valores de temperatura, presión y humedad leídos por los sensores de la MKRENV por el puerto serie.
 
 NOTA: Se requiere que la MKR ENV esté conectada para poder acceder a sus sensores. 
