@@ -24,13 +24,17 @@ La oscilación, que en los casos anteriores se controlaba mediante la función m
 
 ## SerialCmds
 
+Varias versiones de aplicaciones que se comunican por el puerto serie: reciben comandos y o bien realizan una acción o devuelven una respuesta.
+
+### SerialCmds
+
 Aplicación para Arduino que es capaz de recibir comandos por el puerto serie. Esta primera versión sólo acepta los comandos ON y OFF (como se pide en el enunciado de la PLA) que encienden y apagan respectivamente el LED.
 
-## SerialCmds2
+### SerialCmds2
 
 Este caso es muy similar al anterior pero, se modifica ligeramente el código para que también se acepte un nuevo comando: CHG. Este comando cambia el estado del LED.
 
-## SerialCmds3
+### SerialCmds3
 
 Esta versión añade a las anteriores tres nuevos comandos. Los comandos TMP, PRE y HUM devuelven, respectivamente, los valores de temperatura, presión y humedad leídos por los sensores de la MKRENV por el puerto serie.
 
