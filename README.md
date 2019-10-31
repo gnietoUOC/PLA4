@@ -10,11 +10,11 @@ Diferentes variantes para hacer parpadear el LED interno.
 
 Utiliza millis() en lugar de delay() para calcular los instantes en los que se debe cambiar el estado del LED.
 
-### BlinkInt
+### BlinkInts
 
 En este caso se hace oscilar un PIN. Las oscilaciones de este PIN generan una interrupción. El ISR de esta interrupción se encarga de cambiar el estado del LED.
 
-### BlinkInt2
+### BlinkInts2
 
 Una variante del caso anterior. En este caso el PIN que oscila y el que genera la interrupción cuando cambia de estado son diferentes. La conexión entre ambos PIN's se realiza mediante la colocación de un cable que los une.
 
